@@ -1,16 +1,35 @@
 import React from "react";
 import * as S from "./styles"
 
-export const HighlightCard = () => {
+
+export type HighlighCardProps = {
+    title: string;
+    amount: string;
+    lastTransaction: string;
+    type: "up" | "down" | "total"
+}
+
+const icon = {
+    up: "arrow-up-circle",
+    down: "arrow-down-circle",
+    total: "dollar-sign"
+}
+
+export const HighlightCard = ({
+    type,
+    title,
+    amount,
+    lastTransaction
+}: HighlighCardProps) => {
     return (
-        <S.Container>
+        <S.Container type={type} >
             <S.Header>
-                <S.Title>Entrada</S.Title>
-                <S.Icon name="arrow-up-circle" />
+                <S.Title type={type}>{title}</S.Title>
+                <S.Icon name={icon[type]} type={type} />
             </S.Header>
             <S.Body>
-                <S.Amount>R$ 17.4000,00</S.Amount>
-                <S.LastTransaction>Ontem</S.LastTransaction>
+                <S.Amount type={type}>{amount}</S.Amount>
+                <S.LastTransaction type={type}>{lastTransaction}</S.LastTransaction>
             </S.Body>
         </S.Container>
     )
