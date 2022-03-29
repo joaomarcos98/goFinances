@@ -13,8 +13,8 @@ export const Dashboard = () => {
         {
             id: "1",
             type: "positive",
-            title: "Desenvolvimento de site",
-            amount: "R$ 17.000,00",
+            title: "Depósito Betway",
+            amount: "R$ 5.000,00",
             category: {
                 name: "Vendas",
                 icon: "dollar-sign"
@@ -24,7 +24,7 @@ export const Dashboard = () => {
         {
             id: "2",
             type: "negative",
-            title: "Hamburgueria Pizzy",
+            title: "Hamburgueria Santa Fome",
             amount: "R$ 59,00",
             category: {
                 name: "Alimentação",
@@ -35,7 +35,7 @@ export const Dashboard = () => {
         {
             id: "3",
             type: "negative",
-            title: "Aluguel",
+            title: "Celular",
             amount: "R$ 1.200,00",
             category: {
                 name: "Casa",
@@ -65,7 +65,7 @@ export const Dashboard = () => {
                 <HighlightCard
                     type="up"
                     title="Entradas"
-                    amount="R$ 17.000,00"
+                    amount="R$ 7.000,00"
                     lastTransaction="Última entrada dia 13 de abril de 2022"
                 />
                 <HighlightCard

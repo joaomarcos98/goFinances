@@ -10,8 +10,9 @@ import {
 } from "@expo-google-fonts/poppins";
 
 import theme from "./global/styles/theme";
-import { Dashboard } from './screens/Dashboard';
 import { Register } from './screens/Register';
+import { Dashboard } from './screens/Dashboard';
+import { CategorySelect } from './screens/CategorySelect';
 
 export default function App() {
 
@@ -27,7 +28,7 @@ export default function App() {
 
     return (
         <ThemeProvider theme={theme}>
-            <Register />
+            <CategorySelect />
         </ThemeProvider>
     )
 }
