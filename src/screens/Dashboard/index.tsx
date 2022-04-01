@@ -9,42 +9,7 @@ export interface DataListProps extends TransactionDataProps {
 }
 
 export const Dashboard = () => {
-    const data: DataListProps[] = [
-        {
-            id: "1",
-            type: "positive",
-            title: "Depósito Betway",
-            amount: "R$ 5.000,00",
-            category: {
-                name: "Vendas",
-                icon: "dollar-sign"
-            },
-            date: "17/03/2022"
-        },
-        {
-            id: "2",
-            type: "negative",
-            title: "Hamburgueria Santa Fome",
-            amount: "R$ 59,00",
-            category: {
-                name: "Alimentação",
-                icon: "coffee"
-            },
-            date: "17/03/2022"
-        },
-        {
-            id: "3",
-            type: "negative",
-            title: "Celular",
-            amount: "R$ 1.200,00",
-            category: {
-                name: "Casa",
-                icon: "shopping-bag"
-            },
-            date: "17/03/2022"
-        }
-
-    ];
+    const data: DataListProps[] = [   ];
 
     return (
         <S.Container >

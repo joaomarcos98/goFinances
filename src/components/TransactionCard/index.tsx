@@ -1,17 +1,13 @@
 import React from "react";
+import { categories } from "../../utils/categories";
 import * as S from "./styles"
 
 
-type CategoryProps = {
-    name: string;
-    icon: string;
-}
-
 export type TransactionDataProps = {
     type: "positive" | "negative"
-    title: string;
+    name: string;
     amount: string;
-    category: CategoryProps
+    category: string;
     date: string;
 }
 
@@ -21,11 +17,14 @@ type TransactionCardProps = {
 
 export const TransactionCard = ({ data }: TransactionCardProps) => {
 
-    const { title, amount, category, date, type } = data;
+    const { name, amount, date, type } = data;
+    const [category] = categories.filter(
+        item => item.key === data.category
+    );
 
     return (
         <S.Container>
-            <S.Title>{title}</S.Title>
+            <S.Title>{name}</S.Title>
 
             <S.Amount type={type}>
                 {type === "negative" && "- "}

@@ -1,6 +1,5 @@
 import React from "react";
 import { FlatList } from "react-native";
-import { Button } from "../../components/Forms/Button";
 import { categories } from "../../utils/categories";
 import * as S from "./styles"
 
@@ -24,6 +23,7 @@ export const CategorySelect = ({
 
     const handleCategorySelect = (category: Category) => {
         setCateCategory(category)
+        closeSelectCategory()
     }
 
     return (
@@ -47,11 +47,6 @@ export const CategorySelect = ({
                 )}
                 ItemSeparatorComponent={() => <S.Separator />}
             />
-
-            <S.Footer>
-                <Button title="Selecionar" onPress={closeSelectCategory} />
-            </S.Footer>
-
         </S.Container>
     )
 }

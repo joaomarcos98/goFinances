@@ -1,3 +1,5 @@
+import "intl";
+import "intl/locale-data/jsonp/pt-BR";
 import React from 'react';
 import AppLoading from 'expo-app-loading';
 import { ThemeProvider } from 'styled-components';
@@ -27,12 +29,12 @@ export default function App() {
     }
 
     return (
-        <ThemeProvider theme={theme}>
-            <NavigationContainer>
-                <GestureHandlerRootView style={{ flex: 1 }}>
+        <GestureHandlerRootView style={{ flex: 1 }}>
+            <ThemeProvider theme={theme}>
+                <NavigationContainer>
                     <AppRoutes />
-                </GestureHandlerRootView>
-            </NavigationContainer>
-        </ThemeProvider>
+                </NavigationContainer>
+            </ThemeProvider>
+        </GestureHandlerRootView>
     )
 }
