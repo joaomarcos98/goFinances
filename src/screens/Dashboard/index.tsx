@@ -1,15 +1,62 @@
-import React from "react";
+import React, { useCallback, useEffect, useState } from "react";
+import AsyncStorage from "@react-native-async-storage/async-storage";
 
 import { HighlightCard } from "../../components/HighlightCard";
 import { TransactionCard, TransactionDataProps } from "../../components/TransactionCard";
 import * as S from "./styles"
+import { useFocusEffect } from "@react-navigation/native";
 
 export interface DataListProps extends TransactionDataProps {
     id: string
 }
 
 export const Dashboard = () => {
-    const data: DataListProps[] = [   ];
+
+    const [transactions, setTtansactions] = useState<DataListProps[]>([]);
+
+
+    const loadTransactions = async () => {
+        const dataKey = "@goFinances:transactions";
+
+        const response = await AsyncStorage.getItem(dataKey);
+        const transactions = response ? JSON.parse(response) : [];
+
+        const transactionsFormatted: DataListProps[] = transactions.map(
+            (item: DataListProps) => {
+                const amount = Number(item.amount)
+                    .toLocaleString("pt-BR", {
+                        style: "currency",
+                        currency: "BRL"
+                    })
+
+                const date = Intl.DateTimeFormat("pt-BR", {
+                    day: "2-digit",
+                    month: "2-digit",
+                    year: "2-digit"
+                }).format(new Date(item.date))
+
+                return {
+                    id: item.id,
+                    name: item.name,
+                    amount,
+                    type: item.type,
+                    category: item.category,
+                    date
+                }
+            })
+
+        console.log(transactionsFormatted);
+
+        setTtansactions(transactionsFormatted)
+    }
+
+    useEffect(() => {
+        loadTransactions()
+    }, [])
+
+    useFocusEffect(useCallback(() => {
+        loadTransactions()
+    }, []))
 
     return (
         <S.Container >
@@ -58,7 +105,7 @@ export const Dashboard = () => {
 
 
                 <S.TransactionList
-                    data={data}
+                    data={transactions}
                     keyExtractor={item => item.id}
                     renderItem={({ item }) => <TransactionCard data={item} />}
                 />
