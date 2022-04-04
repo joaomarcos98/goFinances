@@ -1,38 +1,47 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
+import { VictoryPie } from "victory-native";
 
 import * as S from "./styles"
 import { HistoryCard } from "../../components/HistoryCard";
 import { categories } from "../../utils/categories";
+import { useTheme } from "styled-components";
+import { useFocusEffect } from "@react-navigation/native";
 
 
 type TransactionData = {
     id: string;
-    type: "positive" | "negative";
     name: string;
+    date: string;
     amount: string;
     category: string;
-    date: string;
+    type: "positive" | "negative";
 }
 
 type CategoryData = {
     key: string;
     name: string;
-    total: string;
     color: string;
+    percent: string
+    totalNumber: number;
+    totalFormated: string;
 }
 
 export const Resume = () => {
 
     const [totalByCaegories, setTotalByCaegories] = useState<CategoryData[]>([]);
+    const theme = useTheme();
 
     const loadData = async () => {
         const dataKey = "@goFinances:transactions";
         const response = await AsyncStorage.getItem(dataKey);
         const responseFormatted = response ? JSON.parse(response) : [];
-
         const expensives = responseFormatted
             .filter((expensive: TransactionData) => expensive.type === "negative")
+
+        const expensivesTotal = expensives.reduce((acumullator: number, expensive: TransactionData) => {
+            return acumullator += Number(expensive.amount);
+        }, 0);
 
         const totalByCategory: CategoryData[] = []
 
@@ -50,11 +59,16 @@ export const Resume = () => {
                     style: "currency",
                     currency: "BRL"
                 })
+
+                const percent = `${(categorySum / expensivesTotal * 100).toFixed(0)}%`
+
                 totalByCategory.push({
+                    percent,
                     key: category.key,
                     name: category.name,
+                    totalFormated: total,
                     color: category.color,
-                    total,
+                    totalNumber: categorySum
                 })
             }
         })
@@ -65,6 +79,10 @@ export const Resume = () => {
         loadData();
     }, [])
 
+    useFocusEffect(useCallback(() => {
+        loadData()
+    }, []))
+
     return (
         <S.Container>
             <S.Header>
@@ -74,13 +92,30 @@ export const Resume = () => {
             </S.Header>
 
             <S.Content>
+                <S.ChartContainer>
+                    <VictoryPie
+                        data={totalByCaegories}
+                        colorScale={totalByCaegories
+                            .map(category => category.color)}
+                        style={{
+                            labels: {
+                                fontSize: 18,
+                                fontWeight: "bold",
+                                fill: theme.colors.shape
+                            }
+                        }}
+                        labelRadius={65}
+                        x="percent"
+                        y="totalNumber"
+                    />
+                </S.ChartContainer>
                 {
                     totalByCaegories.map(category => (
                         <HistoryCard
                             key={category.name}
                             title={category.name}
                             color={category.color}
-                            amount={category.total}
+                            amount={category.totalFormated}
 
                         />
                     ))
