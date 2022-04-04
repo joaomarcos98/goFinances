@@ -45,7 +45,7 @@ const getLastTransactionDate = (
     const lastTransactions = new Date(
         Math.max.apply(Math, collection
             .filter(transaction => transaction.type === type)
-            .map(transaction => new Date(transaction.date).getDate()))
+            .map(transaction => new Date(transaction.date).getTime()))
     )
     return toBRDate(lastTransactions)
 }

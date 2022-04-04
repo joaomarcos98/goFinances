@@ -1,5 +1,5 @@
-import { RFValue } from "react-native-responsive-fontsize";
 import styled from "styled-components/native";
+import { RFValue } from "react-native-responsive-fontsize";
 
 
 type ContainerProps = {
@@ -20,13 +20,11 @@ export const Container = styled.View<ContainerProps>`
     border-left-color: ${({ color }) => color};
 
     margin-bottom: 8px;
-
 `
 
 export const Title = styled.Text`
     font-family: ${({ theme }) => theme.fonts.regular};
     font-size: ${RFValue(15)}px;
-
 `
 
 export const Amount = styled.Text`
