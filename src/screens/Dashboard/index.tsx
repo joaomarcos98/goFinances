@@ -24,11 +24,14 @@ type HighlightData = {
 }
 
 const toBRDate = (date: any) => {
-    return Intl.DateTimeFormat("pt-BR", {
-        day: "2-digit",
-        month: "2-digit",
-        year: "2-digit"
-    }).format(new Date(date))
+    if(date) {
+        return Intl.DateTimeFormat("pt-BR", {
+            day: "2-digit",
+            month: "2-digit",
+            year: "2-digit"
+        }).format(new Date(date))        
+    }
+    return ""
 }
 
 const toCurrency = (param: number) => {
@@ -47,6 +50,9 @@ const getLastTransactionDate = (
             .filter(transaction => transaction.type === type)
             .map(transaction => new Date(transaction.date).getTime()))
     )
+
+    console.log(lastTransactions);
+    
     return toBRDate(lastTransactions)
 }
 
