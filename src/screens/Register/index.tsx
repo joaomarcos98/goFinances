@@ -38,7 +38,7 @@ const INITIAL_CATEGORY_STATE = {
 
 const schema = Yup.object().shape({
     name: Yup.string().required("Nome é obrigatorio"),
-    amount: Yup.number().typeError("Informe um valor númerico").positive().required("Preço é obrigatório")
+    amount: Yup.number().typeError("Informe um valor númerico").positive("Valor não pode ser negativo").required("Preço é obrigatório")
 })
 
 export const Register = () => {
