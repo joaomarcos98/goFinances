@@ -1,12 +1,14 @@
+import { VictoryPie } from "victory-native";
+import { useTheme } from "styled-components";
+import { useFocusEffect } from "@react-navigation/native";
 import React, { useCallback, useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { VictoryPie } from "victory-native";
+import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
+
 
 import * as S from "./styles"
 import { HistoryCard } from "../../components/HistoryCard";
 import { categories } from "../../utils/categories";
-import { useTheme } from "styled-components";
-import { useFocusEffect } from "@react-navigation/native";
 
 
 type TransactionData = {
@@ -91,7 +93,27 @@ export const Resume = () => {
                 </S.Title>
             </S.Header>
 
-            <S.Content>
+            <S.Content
+                showsVerticalScrollIndicator={false}
+                contentContainerStyle={{
+                    paddingHorizontal: 24,
+                    paddingBottom: useBottomTabBarHeight()
+                }}
+            >
+
+                <S.MonthSelect>
+                    <S.MonthSelectButton>
+                        <S.MonthSelectIcon name="chevron-left" />
+                    </S.MonthSelectButton>
+
+                    <S.Month>Abril</S.Month>
+
+                    <S.MonthSelectButton>
+                        <S.MonthSelectIcon name="chevron-right" />
+                    </S.MonthSelectButton>
+
+                </S.MonthSelect>
+
                 <S.ChartContainer>
                     <VictoryPie
                         data={totalByCaegories}
