@@ -16,6 +16,7 @@ import theme from "./global/styles/theme";
 import { NavigationContainer } from "@react-navigation/native";
 import { AppRoutes } from './routes/app.routes';
 import { StatusBar } from "react-native";
+import { SignIn } from "./screens/SignIn";
 
 export default function App() {
 
@@ -37,7 +38,7 @@ export default function App() {
                         barStyle="light-content"
                         backgroundColor={theme.colors.primary}
                     />
-                    <AppRoutes />
+                    <SignIn />
                 </NavigationContainer>
             </ThemeProvider>
         </GestureHandlerRootView>

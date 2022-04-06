@@ -38,7 +38,6 @@ export const Resume = () => {
     const theme = useTheme();
 
     const handleChangeDate = (action: "next" | "prev") => {
-        // setIsLoading(true)
         if (action === "next") {
             const newDate = selectedDate
                 .setMonth(selectedDate.getMonth() + 1)
@@ -98,13 +97,9 @@ export const Resume = () => {
         setIsLoading(false)
     }
 
-    useEffect(() => {
-        loadData();
-    }, [selectedDate])
-
     useFocusEffect(useCallback(() => {
         loadData()
-    }, []))
+    }, [selectedDate]))
 
     const month = Intl.DateTimeFormat("pt-BR", {
         month: "long",
