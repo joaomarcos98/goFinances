@@ -3,6 +3,8 @@ import * as S from "./styles";
 import LogoSvg from "../../assets/logo.svg"
 import AppleSvg from "../../assets/apple.svg"
 import GoogleSvg from "../../assets/google.svg"
+import { SignInSocialButton } from "../../components/SignInSocialButton";
+
 
 export const SignIn = () => {
     return (
@@ -26,7 +28,16 @@ export const SignIn = () => {
                 </S.SignInTitle>
             </S.Header>
             <S.Footer>
-
+                <S.FooterContainer>
+                    <SignInSocialButton
+                        title="Entrar com Google"
+                        icon={GoogleSvg}
+                    />
+                    <SignInSocialButton
+                        title="Entrar com Apple"
+                        icon={AppleSvg}
+                    />
+                </S.FooterContainer>
             </S.Footer>
         </S.Container>
     )
