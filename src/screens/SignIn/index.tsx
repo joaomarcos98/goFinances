@@ -4,9 +4,16 @@ import LogoSvg from "../../assets/logo.svg"
 import AppleSvg from "../../assets/apple.svg"
 import GoogleSvg from "../../assets/google.svg"
 import { SignInSocialButton } from "../../components/SignInSocialButton";
+import { useAuth } from "../../hooks/auth";
 
 
 export const SignIn = () => {
+
+    const { user } = useAuth();
+
+    console.log(user);
+
+
     return (
         <S.Container>
             <S.Header>
