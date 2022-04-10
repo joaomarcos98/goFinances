@@ -5,12 +5,12 @@ import AppleSvg from "../../assets/apple.svg"
 import GoogleSvg from "../../assets/google.svg"
 import { SignInSocialButton } from "../../components/SignInSocialButton";
 import { useAuth } from "../../hooks/auth";
-import { Alert } from "react-native";
+import { Alert, Platform } from "react-native";
 
 
 export const SignIn = () => {
 
-    const { signInWithGoogle } = useAuth();
+    const { signInWithGoogle, signInWithApple } = useAuth();
 
     const handleSignInWithGoogle = async () => {
         try {
@@ -20,6 +20,7 @@ export const SignIn = () => {
             Alert.alert('Não foi possível conectar a Google')
         }
     }
+
 
     return (
         <S.Container>
@@ -48,10 +49,14 @@ export const SignIn = () => {
                         icon={GoogleSvg}
                         onPress={handleSignInWithGoogle}
                     />
-                    <SignInSocialButton
-                        title="Entrar com Apple"
-                        icon={AppleSvg}
-                    />
+                    {
+                        Platform.OS === "ios" &&
+                        <SignInSocialButton
+                            title="Entrar com Apple"
+                            icon={AppleSvg}
+                            onPress={signInWithApple}
+                        />
+                    }
                 </S.FooterContainer>
             </S.Footer>
         </S.Container>
