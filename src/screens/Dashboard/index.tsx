@@ -24,12 +24,13 @@ type HighlightData = {
 }
 
 const toBRDate = (date: any) => {
-    if(date) {
+
+    if (date) {
         return Intl.DateTimeFormat("pt-BR", {
             day: "2-digit",
             month: "2-digit",
             year: "2-digit"
-        }).format(new Date(date))        
+        }).format(new Date(date))
     }
     return ""
 }
@@ -45,15 +46,16 @@ const getLastTransactionDate = (
     collection: DataListProps[],
     type: "positive" | "negative"
 ) => {
-    const lastTransactions = new Date(
-        Math.max.apply(Math, collection
-            .filter(transaction => transaction.type === type)
-            .map(transaction => new Date(transaction.date).getTime()))
-    )
+    if (collection[0]) {
 
-    console.log(lastTransactions);
-    
-    return toBRDate(lastTransactions)
+        const lastTransactions = new Date(
+            Math.max.apply(Math, collection
+                .filter(transaction => transaction.type === type)
+                .map(transaction => new Date(transaction.date).getTime()))
+        )
+        return toBRDate(lastTransactions)
+    }
+
 }
 
 export const Dashboard = () => {
