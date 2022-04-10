@@ -24,6 +24,9 @@ type AuthResponse = {
     type: string
 }
 
+const { REDIRECT_URI } = process.env;
+const { CLIENT_ID } = process.env;
+
 const AuthContext = createContext({} as AuthContextData);
 
 export const AuthProvider = ({ children }: AuthContextProps) => {
@@ -32,8 +35,6 @@ export const AuthProvider = ({ children }: AuthContextProps) => {
 
     const signInWithGoogle = async () => {
         try {
-            const CLIENT_ID = "618521053823-na79m0gatraiberf8lq4f9tiuj5c3gni.apps.googleusercontent.com";
-            const REDIRECT_URI = "https://auth.expo.io/@znxthe9/gofinances";
             const RESPONSE_TYPE = "token";
             const SCOPE = encodeURI("profile email");
 
