@@ -47,29 +47,34 @@ const getLastTransactionDate = (
     collection: DataListProps[],
     type: "positive" | "negative"
 ) => {
-    if (collection[0]) {
 
-        const lastTransactions = new Date(
-            Math.max.apply(Math, collection
-                .filter(transaction => transaction.type === type)
-                .map(transaction => new Date(transaction.date).getTime()))
-        )
-        return toBRDate(lastTransactions)
+    const collectionFilttered = collection
+        .filter(transaction => transaction.type === type)
+
+    if (!collectionFilttered.length) {
+        return 0
     }
+
+    const lastTransactions = new Date(
+        Math.max.apply(Math, collectionFilttered
+            .map(transaction => new Date(transaction.date).getTime()))
+    )
+    return toBRDate(lastTransactions)
 
 }
 
 export const Dashboard = () => {
 
     const theme = useTheme();
-    const { signOut } = useAuth();
+    const { signOut, user } = useAuth();
 
     const [isLoading, setIsLoading] = useState(true);
     const [transactions, setTransactions] = useState<DataListProps[]>([]);
     const [highlightData, setHighlightData] = useState<HighlightData>({} as HighlightData);
 
     const loadTransactions = async () => {
-        const dataKey = "@goFinances:transactions";
+
+        const dataKey = `@goFinances:transactions_user:${user.id}`;
         const response = await AsyncStorage.getItem(dataKey);
         const transactions = response ? JSON.parse(response) : [];
 
@@ -102,21 +107,29 @@ export const Dashboard = () => {
         const lastTransactionEntries = getLastTransactionDate(transactions, "positive");
         const lastTransactionExpensive = getLastTransactionDate(transactions, "negative");
 
+        const totalInterval = !lastTransactionExpensive
+            ? "Não há transações"
+            :  `01 a ${lastTransactionExpensive}` 
+
         const total = entriesSum - expensive;
 
         setTransactions(transactionsFormatted);
         setHighlightData({
             entries: {
                 amount: toCurrency(entriesSum),
-                lastTransaction: `Última saída dia ${lastTransactionEntries}`
+                lastTransaction: lastTransactionEntries
+                    ? `Última saída dia ${lastTransactionEntries}`
+                    : "Não há transações"
             },
             expensives: {
                 amount: toCurrency(expensive),
-                lastTransaction: `Última saída dia ${lastTransactionExpensive}`
+                lastTransaction: lastTransactionExpensive
+                    ? `Última saída dia ${lastTransactionExpensive}`
+                    : "Não há transações"
             },
             total: {
                 amount: toCurrency(total),
-                lastTransaction: ""
+                lastTransaction: totalInterval
             }
         })
         setIsLoading(false);
@@ -138,13 +151,13 @@ export const Dashboard = () => {
                     <S.Header>
                         <S.UserContainer>
                             <S.UserInfo>
-                                <S.Photo source={{ uri: "https://avatars.githubusercontent.com/u/72817686?v=4" }} />
+                                <S.Photo source={{ uri: user.picture }} />
                                 <S.User>
                                     <S.UserGreeting>
                                         Olá,
                                     </S.UserGreeting>
                                     <S.UserName>
-                                        João Marcos
+                                        {user.name}
                                     </S.UserName>
                                 </S.User>
                             </S.UserInfo>

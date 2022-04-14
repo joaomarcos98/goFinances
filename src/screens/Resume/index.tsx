@@ -9,6 +9,7 @@ import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 import { HistoryCard } from "../../components/HistoryCard";
 import { categories } from "../../utils/categories";
 import { ActivityIndicator } from "react-native";
+import { useAuth } from "../../hooks/auth";
 
 
 type TransactionData = {
@@ -30,12 +31,15 @@ type CategoryData = {
 }
 
 export const Resume = () => {
-
+    
+    const { user } = useAuth();
+    
     const [isLoading, setIsLoading] = useState(true)
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [totalByCaegories, setTotalByCaegories] = useState<CategoryData[]>([]);
 
     const theme = useTheme();
+
 
     const handleChangeDate = (action: "next" | "prev") => {
         if (action === "next") {
@@ -50,7 +54,7 @@ export const Resume = () => {
     }
 
     const loadData = async () => {
-        const dataKey = "@goFinances:transactions";
+        const dataKey = `@goFinances:transactions_user:${user.id}`;
         const response = await AsyncStorage.getItem(dataKey);
         const responseFormatted = response ? JSON.parse(response) : [];
         const expensives = responseFormatted

@@ -83,11 +83,14 @@ export const AuthProvider = ({ children }: AuthContextProps) => {
 
             if (credential) {
 
+                const name = credential.fullName!.givenName!
+                const picture = `https://ui-avatars.com/api/?name=${name}&?length=1`
+
                 const userLogged = {
                     id: String(credential.user),
-                    name: credential.fullName!.givenName!,
                     email: credential.email!,
-                    picture: undefined
+                    name,
+                    picture
                 }
                 setUser(userLogged)
 

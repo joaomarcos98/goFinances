@@ -19,11 +19,10 @@ export const SignIn = () => {
     const handleSignInWithGoogle = async () => {
         try {
             setIsLoading(true)
-            await signInWithGoogle()
+            return await signInWithGoogle()
         } catch (err) {
             console.log(err);
             Alert.alert('Não foi possível conectar a Google')
-        } finally {
             setIsLoading(false)
         }
     }
@@ -31,11 +30,10 @@ export const SignIn = () => {
     const handleSignInWithApple = async () => {
         try {
             setIsLoading(true)
-            await signInWithApple()
+            return await signInWithApple()
         } catch (err) {
             console.log(err);
             Alert.alert('Não foi possível conectar a Google')
-        } finally {
             setIsLoading(false)
         }
     }
