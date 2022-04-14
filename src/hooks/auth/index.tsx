@@ -16,8 +16,10 @@ type User = {
 
 type AuthContextData = {
     user: User;
+    isLoading: boolean
     signInWithGoogle(): Promise<void>
     signInWithApple(): Promise<void>
+    signOut(): Promise<void>
 }
 
 type AuthResponse = {
@@ -97,6 +99,11 @@ export const AuthProvider = ({ children }: AuthContextProps) => {
         }
     }
 
+    const signOut = async () => {
+        setUser({} as User);
+        await AsyncStorage.removeItem(userStorageKey);
+    }
+
     useEffect(() => {
         const loadUserStorageData = async () => {
             const userStorage = await AsyncStorage.getItem(userStorageKey);
@@ -112,7 +119,7 @@ export const AuthProvider = ({ children }: AuthContextProps) => {
     }, [])
 
     return (
-        <AuthContext.Provider value={{ user, signInWithGoogle, signInWithApple }}>
+        <AuthContext.Provider value={{ user, signInWithGoogle, signInWithApple, signOut, isLoading }}>
             {children}
         </AuthContext.Provider>
     )

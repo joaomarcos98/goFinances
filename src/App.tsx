@@ -16,7 +16,7 @@ import theme from "./global/styles/theme";
 import { Routes } from "./routes/index.routes";
 import { StatusBar } from "react-native";
 import { SignIn } from "./screens/SignIn";
-import { AuthProvider } from "./hooks/auth";
+import { AuthProvider, useAuth } from "./hooks/auth";
 
 export default function App() {
 
@@ -26,7 +26,9 @@ export default function App() {
         Poppins_700Bold
     });
 
-    if (!fontsLoaded) {
+    const { isLoading } = useAuth()
+
+    if (!fontsLoaded || isLoading) {
         return <AppLoading />
     }
     Routes
