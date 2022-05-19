@@ -1,4 +1,3 @@
-
 module.exports = {
     preset: "jest-expo",
     testPathIgnorePatterns: [
@@ -9,5 +8,6 @@ module.exports = {
     setupFilesAfterEnv: [
         "@testing-library/jest-native/extend-expect",
         "jest-styled-components"
-    ]
+    ],
+    setupFiles: ["./setupFile.js"]
 }
