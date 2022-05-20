@@ -10,6 +10,13 @@ jest.mock("expo-auth-session");
 
 fetchMock.enableMocks();
 
+const userTest = {
+    id: "any_id",
+    email: "any@email.com",
+    name: "John Doe",
+    photo: "any_photo.png",
+  };
+
 describe("Auth Hook", () => {
 
   beforeEach(async () => {
@@ -25,13 +32,6 @@ describe("Auth Hook", () => {
       },
     });
 
-    const userTest = {
-      id: "any_id",
-      email: "any@email.com",
-      name: "John Doe",
-      photo: "any_photo.png",
-    };
-
     fetchMock.mockResponseOnce(JSON.stringify(userTest));
 
     const { result } = renderHook(() => useAuth(), {
@@ -41,5 +41,22 @@ describe("Auth Hook", () => {
     await act(() => result.current.signInWithGoogle());
 
     expect(result.current.user.email).toEqual("any@email.com");
+  });
+
+  it("user should not connect if cancel authentication with Google", async () => {
+    const googleMocked = mocked(startAsync as any);
+    googleMocked.mockReturnValueOnce({
+      type: "error",
+    });
+
+    fetchMock.mockResponseOnce(JSON.stringify(userTest));
+
+    const { result } = renderHook(() => useAuth(), {
+      wrapper: AuthProvider,
+    });
+
+    await act(() => result.current.signInWithGoogle());
+
+    expect(result.current.user).not.toHaveProperty("id");
   });
 });
