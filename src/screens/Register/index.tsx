@@ -46,13 +46,13 @@ export const Register = () => {
 
     const { user } = useAuth()
 
-    const dataKey = `@goFinances:transactions_user:${user.id}`;
+    const dataKey = `@goFinances:transactions_user:${user?.id}`;
 
     const [categoryModalOpen, setCategoryModalOpen] = useState(false);
     const [category, setCategory] = useState<CategoryProps>(INITIAL_CATEGORY_STATE);
     const [transactionType, setTransactionType] = useState<transactionTypeProps>("");
 
-    const navigation = useNavigation<NavigationProps>();
+    // const navigation = useNavigation<NavigationProps>();
 
     const { control, handleSubmit, reset, formState: { errors } } = useForm({
         resolver: yupResolver(schema)
@@ -112,7 +112,7 @@ export const Register = () => {
                 name: "Categoria"
             });
 
-            navigation.navigate("Listagem")
+            // navigation.navigate("Listagem")
 
         } catch (err) {
             console.log(err);
@@ -123,7 +123,6 @@ export const Register = () => {
     useEffect(() => {
         const loadData = async () => {
             const data = await AsyncStorage.getItem(dataKey)
-            console.log(data);
         }
         loadData()
 
@@ -168,6 +167,7 @@ export const Register = () => {
                             />
                         </S.TransactionTypes>
                         <CategorySelectButton
+                            testID="category-button"
                             title={category.name}
                             onPress={handleOpenSelectCategoryModal}
                         />
@@ -178,7 +178,7 @@ export const Register = () => {
                     />
 
                 </S.Form>
-                <Modal visible={categoryModalOpen}>
+                <Modal visible={categoryModalOpen} testID="category-modal">
                     <CategorySelect
                         category={category}
                         setCateCategory={handleCategory}
