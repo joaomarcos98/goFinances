@@ -22,7 +22,7 @@ export const HighlightCard = ({
     lastTransaction
 }: HighlighCardProps) => {
     return (
-        <S.Container type={type} >
+        <S.Container type={type} testID="highlight-card-container">
             <S.Header>
                 <S.Title type={type}>{title}</S.Title>
                 <S.Icon name={icon[type]} type={type} />
