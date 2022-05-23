@@ -5,11 +5,15 @@ import { ThemeProvider } from "styled-components/native";
 import theme from "../../../global/styles/theme";
 
 
-const Providers: React.FC = ({ children }) => (
+type ProviderProps = {
+    children: React.ReactNode
+}
+
+export const Providers = ({ children }: ProviderProps) => (
     <ThemeProvider theme={theme}>
         {children}
     </ThemeProvider>
-);
+)
 
 describe("Input Component", () => {
     it("must have specific border color when active", () => {
