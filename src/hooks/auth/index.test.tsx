@@ -15,48 +15,62 @@ const userTest = {
     email: "any@email.com",
     name: "John Doe",
     photo: "any_photo.png",
-  };
+};
 
 describe("Auth Hook", () => {
 
-  beforeEach(async () => {
-    await AsyncStorage.removeItem("@gofinances:user");
-  });
-
-  it("should be able to sign in with Google account existing", async () => {
-    const googleMocked = mocked(startAsync as any);
-    googleMocked.mockReturnValueOnce({
-      type: "success",
-      params: {
-        access_token: "any_token",
-      },
+    beforeEach(async () => {
+        await AsyncStorage.removeItem("@gofinances:user");
     });
 
-    fetchMock.mockResponseOnce(JSON.stringify(userTest));
+    it("should be able to sign in with Google account existing", async () => {
+        const googleMocked = mocked(startAsync as any);
+        googleMocked.mockReturnValueOnce({
+            type: "success",
+            params: {
+                access_token: "any_token",
+            },
+        });
 
-    const { result } = renderHook(() => useAuth(), {
-      wrapper: AuthProvider,
+        fetchMock.mockResponseOnce(JSON.stringify(userTest));
+
+        const { result } = renderHook(() => useAuth(), {
+            wrapper: AuthProvider,
+        });
+
+        await act(() => result.current.signInWithGoogle());
+
+        expect(result.current.user.email).toEqual("any@email.com");
     });
 
-    await act(() => result.current.signInWithGoogle());
+    it("user should not connect if cancel authentication with Google", async () => {
+        const googleMocked = mocked(startAsync as any);
+        googleMocked.mockReturnValueOnce({
+            type: "error",
+        });
 
-    expect(result.current.user.email).toEqual("any@email.com");
-  });
+        fetchMock.mockResponseOnce(JSON.stringify(userTest));
 
-  it("user should not connect if cancel authentication with Google", async () => {
-    const googleMocked = mocked(startAsync as any);
-    googleMocked.mockReturnValueOnce({
-      type: "error",
+        const { result } = renderHook(() => useAuth(), {
+            wrapper: AuthProvider,
+        });
+
+        await act(() => result.current.signInWithGoogle());
+
+        expect(result.current.user).not.toHaveProperty("id");
     });
 
-    fetchMock.mockResponseOnce(JSON.stringify(userTest));
+    it("should be error with incorrectly Google parameters ", async () => {
 
-    const { result } = renderHook(() => useAuth(), {
-      wrapper: AuthProvider,
+        const { result } = renderHook(() => useAuth(), {
+            wrapper: AuthProvider,
+        });
+
+        try {
+            await act(() => result.current.signInWithGoogle());
+        } catch {
+            expect(result.current.user).toEqual({});
+        }
+
     });
-
-    await act(() => result.current.signInWithGoogle());
-
-    expect(result.current.user).not.toHaveProperty("id");
-  });
 });

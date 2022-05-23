@@ -115,9 +115,9 @@ export const AuthProvider = ({ children }: AuthContextProps) => {
                 const userLogged = JSON.parse(userStorage) as User;
                 setUser(userLogged)
             }
-            setIsLoading(false)
         }
-
+        setIsLoading(false)
+        
         loadUserStorageData()
     }, [])
 
