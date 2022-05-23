@@ -33,8 +33,8 @@ export const TransactionCard = ({ data }: TransactionCardProps) => {
 
             <S.Footer>
                 <S.Category>
-                    <S.Icon name={category.icon} />
-                    <S.CategoryName>{category.name}</S.CategoryName>
+                    <S.Icon name={category?.icon} />
+                    <S.CategoryName>{category?.name}</S.CategoryName>
                 </S.Category>
                 <S.Date>{date}</S.Date>
             </S.Footer>
