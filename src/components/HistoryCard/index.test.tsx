@@ -16,7 +16,7 @@ export const Providers = ({ children }: ProviderProps) => (
 )
 
 describe("HistoryCard component", () => {
-    it("should be render's correctly", () => {
+    it("should be render's  with border left color correctly", () => {
         const { getByTestId } = render(<HistoryCard
             amount="0"
             title="any_title"

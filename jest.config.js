@@ -17,5 +17,8 @@ module.exports = {
     ],
     coverageReporters: [
         "lcov"
-    ]
+    ],
+    transform: {
+        "\\.svg$": "<rootDir>/fileTransformer.js"
+      }
 }
