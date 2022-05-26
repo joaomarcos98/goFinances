@@ -6,7 +6,7 @@ import theme from "../../../global/styles/theme";
 
 
 type ProviderProps = {
-    children: React.ReactNode
+    children: any
 }
 
 export const Providers = ({ children }: ProviderProps) => (
