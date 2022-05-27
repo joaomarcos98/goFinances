@@ -48,12 +48,12 @@ export const AuthProvider = ({ children }: AuthContextProps) => {
 
             const authUrl = `https://accounts.google.com/o/oauth2/v2/auth?client_id=${CLIENT_ID}&redirect_uri=${REDIRECT_URI}&response_type=${RESPONSE_TYPE}&scope=${SCOPE}`;
 
-            const { params, type } = await GoogleAuth.startAsync({ authUrl }) as AuthResponse
+            const { params, type } = await GoogleAuth.startAsync({ authUrl }) as AuthResponse;
 
 
             if (type === "success") {
-                const response = await fetch(`https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=${params.access_token}`)
-                const userInfo = await response.json()
+                const response = await fetch(`https://www.googleapis.com/oauth2/v1/userinfo?alt=json&access_token=${params.access_token}`);
+                const userInfo = await response.json();
 
                 const userLogged = {
                     id: userInfo.id,
@@ -79,7 +79,7 @@ export const AuthProvider = ({ children }: AuthContextProps) => {
                     AppleAuth.AppleAuthenticationScope.FULL_NAME,
                     AppleAuth.AppleAuthenticationScope.EMAIL
                 ]
-            })
+            });
 
             if (credential) {
 
@@ -92,7 +92,7 @@ export const AuthProvider = ({ children }: AuthContextProps) => {
                     name,
                     picture
                 }
-                setUser(userLogged)
+                setUser(userLogged);
 
                 await AsyncStorage.setItem(userStorageKey, JSON.stringify(userLogged));
 
