@@ -184,7 +184,8 @@ export const Dashboard = () => {
                             type="total"
                             title="Total"
                             amount={highlightData.total.amount}
-                            lastTransaction="1 a 16 de abril de 2022"
+                            //TODO retirar essa data fixa
+                            lastTransaction="1 a 26 de maio de 2022"
                         />
                     </S.HighlightCards>
 
