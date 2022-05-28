@@ -4,7 +4,6 @@ import { useTheme } from "styled-components";
 import { useFocusEffect } from "@react-navigation/native";
 import React, { useCallback, useEffect, useState } from "react";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import { useBottomTabBarHeight } from "@react-navigation/bottom-tabs";
 
 import { HistoryCard } from "../../components/HistoryCard";
 import { categories } from "../../utils/categories";
@@ -130,7 +129,6 @@ export const Resume = () => {
                         showsVerticalScrollIndicator={false}
                         contentContainerStyle={{
                             paddingHorizontal: 24,
-                            paddingBottom: useBottomTabBarHeight()
                         }}
                     >
                         <S.MonthSelect>
