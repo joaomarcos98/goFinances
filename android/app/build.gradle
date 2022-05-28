@@ -77,6 +77,9 @@ import com.android.build.OutputFile
  * ]
  */
 
+apply from: "../../node_modules/react-native/react.gradle"
+apply from: "../../node_modules/react-native-code-push/android/codepush.gradle"
+
 project.ext.react = [
     enableHermes: (findProperty('expo.jsEngine') ?: "jsc") == "hermes",
     cliPath: new File(["node", "--print", "require.resolve('react-native/package.json')"].execute(null, rootDir).text.trim()).getParentFile().getAbsolutePath() + "/cli.js",
@@ -157,8 +160,17 @@ android {
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
+            resValue "string", "CodePushDeploymentKey", '""'
         }
+
+        releaseStaging {
+            resValue "string", "CodePushDeploymentKey", '"dUrS67YbkN9fNqjpVCxcKsvQj2vofHsOyZhF8"'
+
+            matchingFallbacks = ['release']
+        }
+
         release {
+            resValue "string", "CodePushDeploymentKey", '"qoXsNI81q1OvToDTxtTavvh4KiBlL5G4OMa2E"'
             // Caution! In production, you need to generate your own keystore file.
             // see https://reactnative.dev/docs/signed-apk-android.
             // signingConfig signingConfigs.debug
@@ -242,3 +254,4 @@ task copyDownloadableDepsToLibs(type: Copy) {
 
 apply from: new File(["node", "--print", "require.resolve('@react-native-community/cli-platform-android/package.json')"].execute(null, rootDir).text.trim(), "../native_modules.gradle");
 applyNativeModulesAppBuildGradle(project)
+
