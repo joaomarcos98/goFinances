@@ -2,7 +2,7 @@
 
 
 <h1 align="center">
-  <img alt="rentx" height="18" title="rentx" src=".github/logo.png" />
+  <img alt="GoFinances" height="18" title="GoFinances" src=".github/Capa.png" />
 </h1>
 
 
