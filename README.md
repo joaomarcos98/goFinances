@@ -2,7 +2,7 @@
 
 
 <h1 align="center">
-  <img alt="GoFinances" height="18" title="GoFinances" src=".github/Capa.png" />
+  <img alt="GoFinances" height="300" wid title="GoFinances" src=".github/Capa.png" />
 </h1>
 
 

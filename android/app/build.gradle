@@ -77,8 +77,8 @@ import com.android.build.OutputFile
  * ]
  */
 
-apply from: "../../node_modules/react-native/react.gradle"
-apply from: "../../node_modules/react-native-code-push/android/codepush.gradle"
+// apply from: "../../node_modules/react-native/react.gradle"
+// apply from: "../../node_modules/react-native-code-push/android/codepush.gradle"
 
 project.ext.react = [
     enableHermes: (findProperty('expo.jsEngine') ?: "jsc") == "hermes",
@@ -160,17 +160,17 @@ android {
     buildTypes {
         debug {
             signingConfig signingConfigs.debug
-            resValue "string", "CodePushDeploymentKey", '""'
+            // resValue "string", "CodePushDeploymentKey", '""'
         }
 
-        releaseStaging {
-            resValue "string", "CodePushDeploymentKey", '"dUrS67YbkN9fNqjpVCxcKsvQj2vofHsOyZhF8"'
+        // releaseStaging {
+        //     resValue "string", "CodePushDeploymentKey", '"dUrS67YbkN9fNqjpVCxcKsvQj2vofHsOyZhF8"'
 
-            matchingFallbacks = ['release']
-        }
+        //     matchingFallbacks = ['release']
+        // }
 
         release {
-            resValue "string", "CodePushDeploymentKey", '"qoXsNI81q1OvToDTxtTavvh4KiBlL5G4OMa2E"'
+            // resValue "string", "CodePushDeploymentKey", '"qoXsNI81q1OvToDTxtTavvh4KiBlL5G4OMa2E"'
             // Caution! In production, you need to generate your own keystore file.
             // see https://reactnative.dev/docs/signed-apk-android.
             // signingConfig signingConfigs.debug
