@@ -1,9 +1,10 @@
 import "intl";
 import "intl/locale-data/jsonp/pt-BR";
-import React from 'react';
+import React, { useEffect } from 'react';
 import AppLoading from 'expo-app-loading';
 import { ThemeProvider } from 'styled-components';
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import codePush from "react-native-code-push";
 
 import {
     useFonts,
@@ -17,7 +18,7 @@ import { Routes } from "./routes/index.routes";
 import { StatusBar } from "react-native";
 import { AuthProvider, useAuth } from "./hooks/auth";
 
-export default function App() {
+function App() {
 
     const [fontsLoaded] = useFonts({
         Poppins_400Regular,
@@ -30,7 +31,12 @@ export default function App() {
     if (!fontsLoaded || isLoading) {
         return <AppLoading />
     }
-    Routes
+
+    useEffect(() => {
+        codePush.sync({
+            installMode: codePush.InstallMode.IMMEDIATE
+        })
+    }, [])
 
     return (
         <GestureHandlerRootView style={{ flex: 1 }}>
@@ -46,3 +52,7 @@ export default function App() {
         </GestureHandlerRootView>
     )
 }
+
+export default codePush({
+    checkFrequency: codePush.CheckFrequency.ON_APP_START
+})(App);
