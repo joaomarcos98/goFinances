@@ -2,7 +2,7 @@
 
 
 <h1 align="center">
-  <img alt="GoFinances" height="300" wid title="GoFinances" src=".github/Capa.png" />
+  <img alt="GoFinances" height="700" title="GoFinances" src=".github/Capa.png" />
 </h1>
 
 
@@ -12,7 +12,7 @@
  <img src="https://img.shields.io/static/v1?label=Ignite&message=ReactNative&color=dc1637&labelColor=0A1033" alt="NLW 06" />
 </p>
 
-![cover](.github/capa.png)
+<!-- ![cover](.github/capa.png) -->
 
 ## 💻 Projeto
 
@@ -57,4 +57,6 @@ No console irá aparecer o QR Code em seu celular com o app do expo instalado es
   <p>Desenvolvido por João Marcos</p>
 
   [![Linkedin Badge](https://img.shields.io/badge/-João%20Marcos-6633cc?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/rodrigo-gon%C3%A7alves-santana/)](https://www.linkedin.com/in/jo%C3%A3o-marcos-belanga-60b8071b6/)
+    
+  <img alt="deplay status" src="https://build.appcenter.ms/v0.1/apps/5d361d4e-dea1-45d9-a5d9-aac7ea612e40/branches/main/badge" />
 </div>
